@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Leaderboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+        }
+
+        #leaderboard {
+            width: 400px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        }
+
+        #score, #min, #max {
+            font-size: 24px;
+            text-align: center;
+            margin: 10px 0;
+        }
+
+        #scoreInput, #minInput, #maxInput {
+            font-size: 24px;
+            width: 100%;
+            text-align: center;
+            padding: 5px;
+        }
+
+        #numbers-container {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .numbers-column {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .number {
+            font-size: 24px;
+            cursor: pointer;
+            user-select: none;
+            margin: 5px;
+        }
+
+        #enterBtn {
+            width: 100%;
+            font-size: 20px;
+            padding: 10px;
+            margin-top: 10px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div id="leaderboard">
+        <div id="score">SCORE: <input type="text" id="currentScore" disabled value="0"></div>
+        <div id="min">MIN: <input type="text" id="minScore" value="0"></div>
+        <div id="max">MAX: <input type="text" id="maxScore" value="0"></div>
+        <input type="text" id="scoreInput" placeholder="Enter score here" disabled>
+        <div id="numbers-container">
+            <div class="numbers-column">
+                <div class="number" onclick="appendNumber(1)">1</div>
+                <div class="number" onclick="appendNumber(4)">4</div>
+                <div class="number" onclick="appendNumber(7)">7</div>
+            </div>
+            <div class="numbers-column">
+                <div class="number" onclick="appendNumber(2)">2</div>
+                <div class="number" onclick="appendNumber(5)">5</div>
+                <div class="number" onclick="appendNumber(8)">8</div>
+            </div>
+            <div class="numbers-column">
+                <div class="number" onclick="appendNumber(3)">3</div>
+                <div class="number" onclick="appendNumber(6)">6</div>
+                <div class="number" onclick="appendNumber(9)">9</div>
+            </div>
+            <div class="numbers-column">
+                <div class="number" onclick="appendNumber(0)">0</div>
+            </div>
+        </div>
+        <button id="enterBtn" onclick="updateMinMax()">ENTER</button>
+    </div>
+
+    <script>
+        let currentScore = "";
+
+        function appendNumber(number) {
+            currentScore += number;
+            document.getElementById("currentScore").value = currentScore;
+        }
+
+        function updateMinMax() {
+            if (currentScore !== "") {
+                const score = parseInt(currentScore);
+                const minScore = parseInt(document.getElementById("minScore").value);
+                const maxScore = parseInt(document.getElementById("maxScore").value);
+
+                if (score < minScore || minScore === 0) {
+                    document.getElementById("minScore").value = score;
+                }
+
+                if (score > maxScore) {
+                    document.getElementById("maxScore").value = score;
+                }
+
+                currentScore = "";
+                document.getElementById("currentScore").value = "";
+                document.getElementById("scoreInput").value = "";
+            }
+        }
+    </script>
+</body>
+</html>
+
+
